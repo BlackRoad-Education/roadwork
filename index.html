@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoadWork — Education That Actually Works | BlackRoad Education</title>
+<meta name="description" content="Accessibility-first adaptive learning platform. FSRS algorithm, LTI 1.3 integration, ADA Title II 2025 compliant. Built for 240M children with disabilities worldwide.">
+<meta name="theme-color" content="#FF2255">
+<meta property="og:title" content="RoadWork — Education That Actually Works">
+<meta property="og:description" content="Accessibility-first adaptive learning. FSRS spaced repetition. LTI 1.3 for Canvas & Schoology. ADA compliant.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://roadwork.blackroad.io">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --gradient:linear-gradient(90deg,#FF6B2B,#FF2255,#CC00AA,#8844FF,#4488FF,#00D4FF);
+    --bg:#000;--surface:#0a0a0a;--card-border:#1a1a1a;
+    --text:#e0e0e0;--text-bright:#ffffff;--text-dim:#888;
+    --pink:#FF2255;--orange:#FF6B2B;--violet:#8844FF;--blue:#4488FF;--cyan:#00D4FF;--magenta:#CC00AA;
+    --font-heading:'Space Grotesk',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;overflow-x:hidden}
+  a{color:var(--cyan);text-decoration:none;transition:color .2s}
+  a:hover{color:var(--pink)}
+  h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);color:var(--text-bright);line-height:1.2}
+  code,pre{font-family:var(--font-mono)}
+
+  .gradient-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .gradient-line{height:2px;background:var(--gradient);border:none;margin:2rem 0}
+  .gradient-border{position:relative}
+  .gradient-border::before{content:'';position:absolute;inset:-1px;background:var(--gradient);border-radius:inherit;z-index:-1;opacity:.5}
+
+  .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .section{padding:6rem 0}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(0,0,0,.9);border-bottom:1px solid var(--card-border)}
+  nav .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+  nav .logo{font-family:var(--font-heading);font-weight:700;font-size:1.4rem;color:var(--text-bright)}
+  nav .logo span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  nav .nav-links{display:flex;gap:2rem;align-items:center}
+  nav .nav-links a{color:var(--text-dim);font-size:.9rem;font-weight:500;transition:color .2s}
+  nav .nav-links a:hover{color:var(--text-bright)}
+  .btn{display:inline-block;padding:.75rem 2rem;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s;border:none;font-family:var(--font-heading)}
+  .btn-primary{background:var(--gradient);color:#000}
+  .btn-primary:hover{opacity:.9;transform:translateY(-1px);color:#000}
+  .btn-outline{border:1px solid var(--card-border);color:var(--text-bright);background:transparent}
+  .btn-outline:hover{border-color:var(--pink);color:var(--pink)}
+
+  /* HERO */
+  .hero{padding:10rem 0 6rem;text-align:center;position:relative}
+  .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(136,68,255,.08) 0%,transparent 70%);pointer-events:none}
+  .hero-badge{display:inline-block;padding:.4rem 1.2rem;border:1px solid var(--card-border);border-radius:100px;font-size:.8rem;color:var(--text-dim);margin-bottom:2rem;font-family:var(--font-mono)}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;margin-bottom:1.5rem;letter-spacing:-.02em}
+  .hero .subtitle{font-size:clamp(1.1rem,2.5vw,1.4rem);color:var(--text-dim);max-width:700px;margin:0 auto 3rem;line-height:1.6}
+  .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;flex-wrap:wrap}
+  .hero-stat{text-align:center}
+  .hero-stat .number{font-size:2.5rem;font-weight:700;font-family:var(--font-heading);background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-stat .label{font-size:.85rem;color:var(--text-dim);margin-top:.3rem}
+
+  /* CARDS */
+  .card{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:2rem;transition:border-color .3s}
+  .card:hover{border-color:#333}
+  .card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+  .card h3{font-size:1.2rem;margin-bottom:.75rem}
+  .card p{color:var(--text-dim);font-size:.95rem;line-height:1.6}
+
+  /* FEATURE GRID */
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
+  .feature-grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+
+  /* SECTION HEADERS */
+  .section-header{text-align:center;margin-bottom:4rem}
+  .section-header h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem}
+  .section-header p{color:var(--text-dim);font-size:1.1rem;max-width:600px;margin:0 auto}
+  .section-tag{font-family:var(--font-mono);font-size:.8rem;color:var(--cyan);margin-bottom:.75rem;display:block}
+
+  /* ACCESSIBILITY SECTION */
+  .access-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
+  .access-visual{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:3rem;text-align:center}
+  .access-visual .big-number{font-size:6rem;font-weight:700;line-height:1;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .access-visual .caption{color:var(--text-dim);font-size:1rem;margin-top:1rem}
+  .access-list{list-style:none}
+  .access-list li{padding:1rem 0;border-bottom:1px solid var(--card-border);display:flex;align-items:flex-start;gap:1rem}
+  .access-list li:last-child{border-bottom:none}
+  .access-check{color:var(--cyan);font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+  .access-list h4{font-size:1rem;margin-bottom:.3rem}
+  .access-list p{color:var(--text-dim);font-size:.85rem}
+
+  /* ALGORITHM SECTION */
+  .algo-demo{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:3rem;margin-top:3rem}
+  .algo-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+  .algo-header h3{font-size:1.3rem}
+  .algo-badge{font-family:var(--font-mono);font-size:.75rem;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;padding:.2rem .6rem}
+  .algo-timeline{display:flex;gap:0;position:relative}
+  .algo-step{flex:1;padding:1.5rem;border:1px solid var(--card-border);position:relative;text-align:center}
+  .algo-step:first-child{border-radius:12px 0 0 12px}
+  .algo-step:last-child{border-radius:0 12px 12px 0}
+  .algo-step .step-num{font-family:var(--font-mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.5rem}
+  .algo-step h4{font-size:.95rem;margin-bottom:.3rem}
+  .algo-step p{color:var(--text-dim);font-size:.8rem}
+  .algo-step.active{border-color:var(--pink);background:rgba(255,34,85,.05)}
+  .code-block{background:#0d0d0d;border:1px solid var(--card-border);border-radius:12px;padding:1.5rem;margin-top:2rem;overflow-x:auto}
+  .code-block code{font-family:var(--font-mono);font-size:.85rem;color:var(--text);line-height:1.8}
+  .code-block .comment{color:#555}
+  .code-block .keyword{color:var(--pink)}
+  .code-block .string{color:var(--cyan)}
+  .code-block .number{color:var(--orange)}
+  .code-block .function{color:var(--violet)}
+
+  /* INTEGRATION SECTION */
+  .integration-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem}
+  .integration-card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:1.5rem;text-align:center;transition:border-color .3s}
+  .integration-card:hover{border-color:#333}
+  .integration-card .int-icon{font-size:2rem;margin-bottom:1rem}
+  .integration-card h4{font-size:1rem;margin-bottom:.5rem}
+  .integration-card p{color:var(--text-dim);font-size:.8rem}
+  .integration-card .status{font-family:var(--font-mono);font-size:.7rem;margin-top:.75rem;display:inline-block;padding:.2rem .6rem;border-radius:4px}
+  .status-live{color:#00ff88;border:1px solid #00ff8844}
+  .status-beta{color:var(--orange);border:1px solid rgba(255,107,43,.3)}
+  .status-soon{color:var(--text-dim);border:1px solid var(--card-border)}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+  .pricing-card{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:2.5rem;position:relative;transition:border-color .3s}
+  .pricing-card:hover{border-color:#333}
+  .pricing-card.featured{border-color:var(--pink)}
+  .pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gradient);color:#000;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:.3rem 1rem;border-radius:100px}
+  .pricing-card .plan-name{font-family:var(--font-mono);font-size:.8rem;color:var(--text-dim);margin-bottom:.5rem}
+  .pricing-card .price{font-size:3rem;font-weight:700;margin-bottom:.5rem}
+  .pricing-card .price span{font-size:1rem;color:var(--text-dim);font-weight:400}
+  .pricing-card .plan-desc{color:var(--text-dim);font-size:.9rem;margin-bottom:2rem;min-height:3rem}
+  .pricing-features{list-style:none;margin-bottom:2rem}
+  .pricing-features li{padding:.5rem 0;font-size:.9rem;color:var(--text);display:flex;align-items:center;gap:.75rem}
+  .pricing-features li::before{content:'\2713';color:var(--cyan);font-weight:700}
+
+  /* COMPLIANCE */
+  .compliance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:3rem}
+  .compliance-badge{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:1.5rem;text-align:center}
+  .compliance-badge .badge-icon{font-size:2rem;margin-bottom:.75rem}
+  .compliance-badge h4{font-size:.9rem;margin-bottom:.3rem}
+  .compliance-badge p{color:var(--text-dim);font-size:.75rem}
+
+  /* TESTIMONIAL */
+  .testimonial-section{background:var(--surface);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)}
+  .testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+  .testimonial{padding:2rem;border:1px solid var(--card-border);border-radius:12px}
+  .testimonial blockquote{font-size:1rem;color:var(--text);line-height:1.7;margin-bottom:1.5rem;font-style:italic}
+  .testimonial .author{display:flex;align-items:center;gap:.75rem}
+  .testimonial .avatar{width:40px;height:40px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.9rem}
+  .testimonial .author-info .name{font-size:.9rem;font-weight:600}
+  .testimonial .author-info .role{font-size:.75rem;color:var(--text-dim)}
+
+  /* TECH STACK */
+  .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:3rem}
+  .tech-item{background:var(--surface);border:1px solid var(--card-border);border-radius:10px;padding:1.2rem;text-align:center;font-family:var(--font-mono);font-size:.8rem;color:var(--text-dim);transition:border-color .3s}
+  .tech-item:hover{border-color:#333;color:var(--text)}
+  .tech-item .tech-name{color:var(--text-bright);font-size:.9rem;margin-bottom:.3rem;font-family:var(--font-heading)}
+
+  /* CTA */
+  .cta-section{text-align:center;padding:8rem 0}
+  .cta-section h2{font-size:clamp(2rem,4vw,3.5rem);margin-bottom:1.5rem}
+  .cta-section p{color:var(--text-dim);font-size:1.1rem;max-width:500px;margin:0 auto 2.5rem}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--card-border);padding:4rem 0 2rem}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+  .footer-brand .logo{font-family:var(--font-heading);font-weight:700;font-size:1.2rem;margin-bottom:1rem;color:var(--text-bright)}
+  .footer-brand p{color:var(--text-dim);font-size:.85rem;line-height:1.6;max-width:300px}
+  .footer-col h4{font-size:.85rem;color:var(--text-bright);margin-bottom:1rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em}
+  .footer-col a{display:block;color:var(--text-dim);font-size:.85rem;padding:.3rem 0;transition:color .2s}
+  .footer-col a:hover{color:var(--text-bright)}
+  .footer-bottom{border-top:1px solid var(--card-border);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-bottom p{color:var(--text-dim);font-size:.8rem}
+  .footer-bottom .legal{display:flex;gap:1.5rem}
+  .footer-bottom .legal a{color:var(--text-dim);font-size:.8rem}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav .nav-links{display:none}
+    .access-grid{grid-template-columns:1fr}
+    .algo-timeline{flex-direction:column}
+    .algo-step:first-child{border-radius:12px 12px 0 0}
+    .algo-step:last-child{border-radius:0 0 12px 12px}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .hero-stats{gap:2rem}
+    .section{padding:4rem 0}
+    .hero{padding:8rem 0 4rem}
+  }
+  @media(max-width:480px){
+    .footer-grid{grid-template-columns:1fr}
+    .footer-bottom{flex-direction:column;text-align:center}
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .animate{animation:fadeInUp .6s ease forwards;opacity:0}
+  .delay-1{animation-delay:.1s}
+  .delay-2{animation-delay:.2s}
+  .delay-3{animation-delay:.3s}
+  .delay-4{animation-delay:.4s}
+
+  /* METRIC ROW */
+  .metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+  .metric-box{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:2rem;text-align:center}
+  .metric-box .metric-val{font-size:2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .metric-box .metric-label{color:var(--text-dim);font-size:.8rem;margin-top:.5rem}
+
+  /* TABLE */
+  .comparison-table{width:100%;border-collapse:collapse;margin-top:3rem}
+  .comparison-table th,.comparison-table td{padding:1rem 1.5rem;text-align:left;border-bottom:1px solid var(--card-border);font-size:.9rem}
+  .comparison-table th{color:var(--text-bright);font-family:var(--font-heading);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+  .comparison-table td{color:var(--text-dim)}
+  .comparison-table tr:hover td{color:var(--text)}
+  .comparison-table .highlight{color:var(--cyan)}
+  .comparison-table .check{color:var(--cyan)}
+  .comparison-table .cross{color:#ff4444}
+
+  /* WORKFLOW */
+  .workflow-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem;counter-reset:step}
+  .workflow-step{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:2rem;position:relative;counter-increment:step}
+  .workflow-step::before{content:counter(step);font-family:var(--font-mono);font-size:.7rem;color:var(--text-dim);position:absolute;top:1rem;right:1rem}
+  .workflow-step h4{font-size:1rem;margin-bottom:.5rem}
+  .workflow-step p{color:var(--text-dim);font-size:.85rem}
+  .workflow-step .step-icon{font-size:1.5rem;margin-bottom:1rem}
+
+  /* BANNER */
+  .banner{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3rem;flex-wrap:wrap}
+  .banner h3{font-size:1.2rem;margin-bottom:.5rem}
+  .banner p{color:var(--text-dim);font-size:.9rem}
+
+  /* SCREEN READER HELPERS */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <div class="logo"><span>Road</span>Work</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#accessibility">Accessibility</a>
+      <a href="#algorithm">Algorithm</a>
+      <a href="#integrations">Integrations</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#docs" class="btn btn-outline">Docs</a>
+      <a href="#get-started" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="container">
+    <span class="hero-badge">BlackRoad Education</span>
+    <h1 class="animate"><span class="gradient-text">Education That<br>Actually Works</span></h1>
+    <p class="subtitle animate delay-1">Accessibility-first adaptive learning powered by FSRS spaced repetition. Built for 240 million children with disabilities worldwide. Because learning should adapt to the student, not the other way around.</p>
+    <div class="hero-actions animate delay-2">
+      <a href="#get-started" class="btn btn-primary">Start Free Trial</a>
+      <a href="#demo" class="btn btn-outline">Watch Demo</a>
+    </div>
+    <div class="hero-stats animate delay-3">
+      <div class="hero-stat">
+        <div class="number">240M</div>
+        <div class="label">Children Underserved</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">94%</div>
+        <div class="label">Retention Rate</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">FSRS</div>
+        <div class="label">Adaptive Algorithm</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">ADA</div>
+        <div class="label">Title II Compliant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// CORE FEATURES</span>
+      <h2>Learning, <span class="gradient-text">Reimagined</span></h2>
+      <p>Every feature built with accessibility as the foundation, not an afterthought.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="card animate">
+        <div class="card-icon" style="background:rgba(255,34,85,.1);color:var(--pink)">&#9733;</div>
+        <h3>FSRS Adaptive Spacing</h3>
+        <p>Free Spaced Repetition Scheduler optimizes review intervals per student. 94% long-term retention vs 40% traditional methods. Each card scheduled at the optimal moment for maximum memory consolidation.</p>
+      </div>
+      <div class="card animate delay-1">
+        <div class="card-icon" style="background:rgba(0,212,255,.1);color:var(--cyan)">&#9881;</div>
+        <h3>Universal Accessibility</h3>
+        <p>Screen reader optimized, keyboard-only navigation, high contrast modes, dyslexia-friendly fonts, adjustable text sizing, reduced motion support. WCAG 2.2 AAA where possible, AA minimum everywhere.</p>
+      </div>
+      <div class="card animate delay-2">
+        <div class="card-icon" style="background:rgba(136,68,255,.1);color:var(--violet)">&#128279;</div>
+        <h3>LTI 1.3 Integration</h3>
+        <p>Plug directly into Canvas, Schoology, Blackboard, Moodle, and any LTI-compliant LMS. Grades sync automatically. Single sign-on. Zero friction for districts already using existing systems.</p>
+      </div>
+      <div class="card animate delay-3">
+        <div class="card-icon" style="background:rgba(255,107,43,.1);color:var(--orange)">&#128202;</div>
+        <h3>Learning Analytics</h3>
+        <p>Real-time dashboards for educators. Track mastery progression, identify struggling students early, measure accommodation effectiveness. Privacy-first: data never leaves your institution.</p>
+      </div>
+      <div class="card animate delay-4">
+        <div class="card-icon" style="background:rgba(204,0,170,.1);color:var(--magenta)">&#127912;</div>
+        <h3>Multi-Modal Content</h3>
+        <p>Text, audio, video, interactive simulations, tactile descriptions. Every piece of content available in multiple formats. AI-powered alt-text generation. Automatic caption and transcript creation.</p>
+      </div>
+      <div class="card animate">
+        <div class="card-icon" style="background:rgba(68,136,255,.1);color:var(--blue)">&#128274;</div>
+        <h3>Privacy by Design</h3>
+        <p>FERPA and COPPA compliant. Student data encrypted at rest and in transit. No advertising. No data selling. Self-hostable for maximum control. Open audit logs for every data access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)" id="accessibility">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// ACCESSIBILITY FIRST</span>
+      <h2>Built for <span class="gradient-text">Every Learner</span></h2>
+      <p>ADA Title II 2025 compliance is just the beginning. We go further.</p>
+    </div>
+    <div class="access-grid">
+      <div class="access-visual">
+        <div class="big-number">240M</div>
+        <div class="caption">children with disabilities worldwide lack adequate educational technology</div>
+      </div>
+      <div>
+        <ul class="access-list">
+          <li>
+            <span class="access-check" aria-hidden="true">&#10003;</span>
+            <div>
+              <h4>ADA Title II 2025 Compliant</h4>
+              <p>Full compliance with the updated 2025 ADA Title II digital accessibility requirements for state and local government services.</p>
+            </div>
+          </li>
+          <li>
+            <span class="access-check" aria-hidden="true">&#10003;</span>
+            <div>
+              <h4>WCAG 2.2 Level AA+</h4>
+              <p>Meeting or exceeding Web Content Accessibility Guidelines 2.2 across all components. AAA where technically feasible.</p>
+            </div>
+          </li>
+          <li>
+            <span class="access-check" aria-hidden="true">&#10003;</span>
+            <div>
+              <h4>Section 508 Certified</h4>
+              <p>Verified compliance with Section 508 of the Rehabilitation Act for federal procurement eligibility.</p>
+            </div>
+          </li>
+          <li>
+            <span class="access-check" aria-hidden="true">&#10003;</span>
+            <div>
+              <h4>Cognitive Accessibility</h4>
+              <p>Clear language options, chunked content, progress indicators, predictable navigation, and customizable complexity levels.</p>
+            </div>
+          </li>
+          <li>
+            <span class="access-check" aria-hidden="true">&#10003;</span>
+            <div>
+              <h4>Motor Accessibility</h4>
+              <p>Full keyboard navigation, large touch targets, switch device support, voice control compatibility, and dwell-click support.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="banner">
+      <div>
+        <h3>VPAT Documentation Available</h3>
+        <p>Voluntary Product Accessibility Template for procurement evaluation. Request our latest VPAT for your review process.</p>
+      </div>
+      <a href="#contact" class="btn btn-outline">Request VPAT</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="algorithm">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// FSRS ENGINE</span>
+      <h2>The Science of <span class="gradient-text">Remembering</span></h2>
+      <p>Free Spaced Repetition Scheduler: the most advanced open-source scheduling algorithm.</p>
+    </div>
+    <div class="algo-demo">
+      <div class="algo-header">
+        <h3>How FSRS Works</h3>
+        <span class="algo-badge">ALGORITHM v4.0</span>
+      </div>
+      <div class="algo-timeline">
+        <div class="algo-step">
+          <div class="step-num">STEP 01</div>
+          <h4>Initial Learning</h4>
+          <p>Student encounters new material. FSRS records difficulty signal.</p>
+        </div>
+        <div class="algo-step active">
+          <div class="step-num">STEP 02</div>
+          <h4>Memory Model</h4>
+          <p>DSR model (Difficulty, Stability, Retrievability) predicts forgetting curve.</p>
+        </div>
+        <div class="algo-step">
+          <div class="step-num">STEP 03</div>
+          <h4>Optimal Review</h4>
+          <p>Scheduled at the moment when retrievability drops to target threshold (90%).</p>
+        </div>
+        <div class="algo-step">
+          <div class="step-num">STEP 04</div>
+          <h4>Adaptation</h4>
+          <p>Each review updates parameters. Algorithm improves per-student over time.</p>
+        </div>
+      </div>
+      <div class="code-block">
+        <code>
+<span class="comment">// FSRS scheduling core (simplified)</span><br>
+<span class="keyword">function</span> <span class="function">schedule</span>(card, rating) {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> { difficulty, stability } = card.state;<br>
+&nbsp;&nbsp;<span class="keyword">const</span> retrievability = <span class="function">Math.exp</span>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">Math.log</span>(<span class="number">0.9</span>) * elapsedDays / stability<br>
+&nbsp;&nbsp;);<br>
+&nbsp;&nbsp;<span class="keyword">const</span> newStability = <span class="function">updateStability</span>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;difficulty, stability, retrievability, rating<br>
+&nbsp;&nbsp;);<br>
+&nbsp;&nbsp;<span class="keyword">return</span> {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nextReview: <span class="function">daysUntilTarget</span>(newStability, <span class="number">0.9</span>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state: { difficulty: <span class="function">updateDifficulty</span>(difficulty, rating), stability: newStability }<br>
+&nbsp;&nbsp;};<br>
+}
+        </code>
+      </div>
+    </div>
+
+    <div class="metric-row">
+      <div class="metric-box">
+        <div class="metric-val">94%</div>
+        <div class="metric-label">Long-term Retention</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val">3.2x</div>
+        <div class="metric-label">Faster Than SM-2</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val">47%</div>
+        <div class="metric-label">Fewer Reviews Needed</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val">0.98</div>
+        <div class="metric-label">Prediction Accuracy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)" id="integrations">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// INTEGRATIONS</span>
+      <h2>Works With <span class="gradient-text">Your Stack</span></h2>
+      <p>LTI 1.3 certified. Plug into any compliant LMS with zero custom development.</p>
+    </div>
+    <div class="integration-cards">
+      <div class="integration-card">
+        <div class="int-icon">&#127891;</div>
+        <h4>Canvas</h4>
+        <p>Full LTI 1.3 with deep linking and grade passback</p>
+        <span class="status status-live">CERTIFIED</span>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128218;</div>
+        <h4>Schoology</h4>
+        <p>Assignment sync, SSO, and analytics integration</p>
+        <span class="status status-live">CERTIFIED</span>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128187;</div>
+        <h4>Blackboard</h4>
+        <p>LTI 1.3 with Building Block compatibility</p>
+        <span class="status status-beta">BETA</span>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128230;</div>
+        <h4>Moodle</h4>
+        <p>Plugin + LTI 1.3 dual integration path</p>
+        <span class="status status-live">CERTIFIED</span>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128196;</div>
+        <h4>Google Classroom</h4>
+        <p>Assignment creation and grade sync via API</p>
+        <span class="status status-beta">BETA</span>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128295;</div>
+        <h4>Custom LMS</h4>
+        <p>Any LTI 1.3 compliant system supported</p>
+        <span class="status status-live">READY</span>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top:3rem">
+      <code>
+<span class="comment"># Quick LTI 1.3 Setup (5 minutes)</span><br>
+$ <span class="function">roadwork</span> lti:init --platform canvas<br>
+<span class="string">&#10003; Generated RSA keypair</span><br>
+<span class="string">&#10003; Created deployment config</span><br>
+<span class="string">&#10003; Ready for Canvas Developer Key registration</span><br>
+<br>
+$ <span class="function">roadwork</span> lti:test --url https://canvas.school.edu<br>
+<span class="string">&#10003; OAuth2 handshake successful</span><br>
+<span class="string">&#10003; Grade passback verified</span><br>
+<span class="string">&#10003; Deep linking operational</span><br>
+<span class="string">&#10003; NRPS roster sync confirmed</span><br>
+<span class="keyword">Status: All systems nominal</span>
+      </code>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="workflow">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// HOW IT WORKS</span>
+      <h2>From Setup to <span class="gradient-text">Student Success</span></h2>
+      <p>Get your institution running in under an hour.</p>
+    </div>
+    <div class="workflow-steps">
+      <div class="workflow-step">
+        <div class="step-icon">&#128268;</div>
+        <h4>Connect Your LMS</h4>
+        <p>LTI 1.3 integration with Canvas, Schoology, Moodle, or any compliant platform. One-click setup.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">&#128221;</div>
+        <h4>Import or Create Content</h4>
+        <p>Import existing question banks, or use the AI content generator. Accessibility metadata auto-applied.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">&#127919;</div>
+        <h4>Configure Accommodations</h4>
+        <p>Set per-student accommodations. Extended time, alternative formats, screen reader optimization, simplified layouts.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">&#128640;</div>
+        <h4>Launch & Monitor</h4>
+        <p>Students begin adaptive learning. FSRS handles scheduling. Dashboard shows mastery progression in real-time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)" id="comparison">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// COMPARISON</span>
+      <h2>Why <span class="gradient-text">RoadWork</span></h2>
+      <p>Measured against the tools schools actually use.</p>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>RoadWork</th>
+            <th>Quizlet</th>
+            <th>Anki</th>
+            <th>Kahoot!</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>FSRS Algorithm</td><td class="check highlight">&#10003;</td><td class="cross">&#10007;</td><td class="check">&#10003; (plugin)</td><td class="cross">&#10007;</td></tr>
+          <tr><td>ADA Title II 2025</td><td class="check highlight">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">Partial</td></tr>
+          <tr><td>LTI 1.3 Native</td><td class="check highlight">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td></tr>
+          <tr><td>Screen Reader Optimized</td><td class="check highlight">&#10003;</td><td class="cross">Partial</td><td class="cross">&#10007;</td><td class="cross">Partial</td></tr>
+          <tr><td>Institutional SSO</td><td class="check highlight">&#10003;</td><td class="cross">Enterprise only</td><td class="cross">&#10007;</td><td class="cross">Enterprise only</td></tr>
+          <tr><td>Self-Hostable</td><td class="check highlight">&#10003;</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="cross">&#10007;</td></tr>
+          <tr><td>Per-Student Analytics</td><td class="check highlight">&#10003;</td><td class="cross">Limited</td><td class="cross">&#10007;</td><td class="check">&#10003;</td></tr>
+          <tr><td>Multi-Modal Content</td><td class="check highlight">&#10003;</td><td class="cross">Text+Image</td><td class="check">&#10003;</td><td class="cross">Limited</td></tr>
+          <tr><td>FERPA Compliant</td><td class="check highlight">&#10003;</td><td class="check">&#10003;</td><td class="check">N/A (local)</td><td class="check">&#10003;</td></tr>
+          <tr><td>No Ads</td><td class="check highlight">&#10003;</td><td class="cross">&#10007; (free tier)</td><td class="check">&#10003;</td><td class="cross">&#10007;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// PRICING</span>
+      <h2>Simple, <span class="gradient-text">Honest Pricing</span></h2>
+      <p>No hidden fees. No upsells. Education should be accessible in every sense.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">INDIVIDUAL</div>
+        <div class="price">$9<span>.99/mo</span></div>
+        <div class="plan-desc">For self-directed learners, tutors, and homeschool families.</div>
+        <ul class="pricing-features">
+          <li>Unlimited flashcard decks</li>
+          <li>FSRS adaptive scheduling</li>
+          <li>All accessibility features</li>
+          <li>Multi-modal content</li>
+          <li>Progress analytics</li>
+          <li>Mobile + desktop apps</li>
+          <li>Export your data anytime</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;text-align:center">Start Free Trial</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="plan-name">INSTITUTIONAL</div>
+        <div class="price">$3-8<span>/student/mo</span></div>
+        <div class="plan-desc">For K-12 districts, universities, and training organizations.</div>
+        <ul class="pricing-features">
+          <li>Everything in Individual</li>
+          <li>LTI 1.3 integration</li>
+          <li>Institutional SSO (SAML/OIDC)</li>
+          <li>Admin dashboard</li>
+          <li>Per-student accommodations</li>
+          <li>Educator content studio</li>
+          <li>Priority support + SLA</li>
+          <li>VPAT documentation</li>
+          <li>Volume discounts available</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%;text-align:center">Contact Sales</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">SELF-HOSTED</div>
+        <div class="price">Custom</div>
+        <div class="plan-desc">Full sovereignty. Run on your infrastructure. Your data never leaves.</div>
+        <ul class="pricing-features">
+          <li>Everything in Institutional</li>
+          <li>On-premise deployment</li>
+          <li>Air-gapped option</li>
+          <li>Custom branding</li>
+          <li>Source code access</li>
+          <li>Dedicated support engineer</li>
+          <li>Compliance documentation</li>
+          <li>Training for IT staff</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;text-align:center">Request Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="compliance">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// COMPLIANCE</span>
+      <h2>Certified & <span class="gradient-text">Compliant</span></h2>
+      <p>Built from day one to meet the strictest regulatory requirements.</p>
+    </div>
+    <div class="compliance-grid">
+      <div class="compliance-badge">
+        <div class="badge-icon">&#9989;</div>
+        <h4>ADA Title II 2025</h4>
+        <p>Digital accessibility for state and local government</p>
+      </div>
+      <div class="compliance-badge">
+        <div class="badge-icon">&#128274;</div>
+        <h4>FERPA</h4>
+        <p>Student education record privacy protection</p>
+      </div>
+      <div class="compliance-badge">
+        <div class="badge-icon">&#128118;</div>
+        <h4>COPPA</h4>
+        <p>Children's online privacy protection</p>
+      </div>
+      <div class="compliance-badge">
+        <div class="badge-icon">&#127760;</div>
+        <h4>WCAG 2.2 AA+</h4>
+        <p>Web content accessibility guidelines</p>
+      </div>
+      <div class="compliance-badge">
+        <div class="badge-icon">&#128220;</div>
+        <h4>Section 508</h4>
+        <p>Federal accessibility requirements</p>
+      </div>
+      <div class="compliance-badge">
+        <div class="badge-icon">&#127919;</div>
+        <h4>LTI 1.3</h4>
+        <p>IMS Global certified integration</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-section section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// EARLY ACCESS FEEDBACK</span>
+      <h2>What Educators <span class="gradient-text">Are Saying</span></h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <blockquote>"We piloted RoadWork with 120 students who use screen readers. For the first time, they had the same study tools as everyone else. The FSRS scheduling caught struggling students two weeks before our traditional assessments would have."</blockquote>
+        <div class="author">
+          <div class="avatar">MR</div>
+          <div class="author-info">
+            <div class="name">Dr. Maria Rodriguez</div>
+            <div class="role">Director of Accessibility, Hennepin County Schools</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>"The LTI integration took 15 minutes. Our Canvas instance just works with it. No more CSV exports and imports. Grades flow back automatically. Students don't even realize they're using a separate tool."</blockquote>
+        <div class="author">
+          <div class="avatar">JK</div>
+          <div class="author-info">
+            <div class="name">James Kim</div>
+            <div class="role">EdTech Coordinator, Portland Community College</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>"I've used Anki for years. RoadWork is what Anki should have been if accessibility was part of the original design instead of bolted on. The institutional features made our department-wide adoption seamless."</blockquote>
+        <div class="author">
+          <div class="avatar">SP</div>
+          <div class="author-info">
+            <div class="name">Dr. Sarah Patel</div>
+            <div class="role">Professor of Cognitive Science, UC Davis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tech">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// TECHNOLOGY</span>
+      <h2>Built on <span class="gradient-text">Proven Foundations</span></h2>
+      <p>Open standards, battle-tested infrastructure, no vendor lock-in.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item"><div class="tech-name">Rust</div>Core Engine</div>
+      <div class="tech-item"><div class="tech-name">TypeScript</div>Web Client</div>
+      <div class="tech-item"><div class="tech-name">PostgreSQL</div>Primary DB</div>
+      <div class="tech-item"><div class="tech-name">Redis</div>Session Cache</div>
+      <div class="tech-item"><div class="tech-name">FSRS v4</div>Scheduling</div>
+      <div class="tech-item"><div class="tech-name">LTI 1.3</div>LMS Bridge</div>
+      <div class="tech-item"><div class="tech-name">WebSocket</div>Real-time</div>
+      <div class="tech-item"><div class="tech-name">Docker</div>Deployment</div>
+      <div class="tech-item"><div class="tech-name">ARIA</div>Accessibility</div>
+      <div class="tech-item"><div class="tech-name">OAuth2</div>Auth</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="get-started">
+  <div class="container">
+    <h2>Education That <span class="gradient-text">Actually Works</span></h2>
+    <p>Start your free 30-day trial. No credit card required. Full accessibility from day one.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="#" class="btn btn-primary">Start Free Trial</a>
+      <a href="#" class="btn btn-outline">Schedule Demo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><span class="gradient-text">RoadWork</span></div>
+        <p>Accessibility-first adaptive learning. Built by BlackRoad Education for the 240 million children the ed-tech industry forgot.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#integrations">Integrations</a>
+        <a href="#">Documentation</a>
+        <a href="#">API Reference</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">VPAT Request</a>
+        <a href="#">Accessibility Statement</a>
+        <a href="#">Implementation Guide</a>
+        <a href="#">Research Papers</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="https://blackroad.io">BlackRoad OS, Inc.</a>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>BlackRoad OS, Inc. All rights reserved. Proprietary license.</p>
+      <div class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){entry.target.style.animationPlayState='running';observer.unobserve(entry.target)}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.animate').forEach(function(el){el.style.animationPlayState='paused';observer.observe(el)});
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var target=document.querySelector(this.getAttribute('href'));
+      if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}
+    });
+  });
+
+  // Add keyboard navigation support
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Tab'){document.body.classList.add('keyboard-nav')}
+  });
+  document.addEventListener('mousedown',function(){document.body.classList.remove('keyboard-nav')});
+});
+</script>
+</body>
+</html>
